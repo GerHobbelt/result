@@ -74,15 +74,19 @@
 #if __cplusplus >= 201703L
 # define RESULT_NODISCARD [[nodiscard]]
 # define RESULT_WARN_UNUSED [[nodiscard]]
+# define MAYBE_UNUSED_ENTITY [[maybe_unused]]
 #elif defined(__clang__) && ((__clang_major__ > 3) || ((__clang_major__ == 3) && (__clang_minor__ >= 9)))
 # define RESULT_NODISCARD [[clang::warn_unused_result]]
 # define RESULT_WARN_UNUSED [[clang::warn_unused_result]]
+# define MAYBE_UNUSED_ENTITY
 #elif defined(__GNUC__)
 # define RESULT_NODISCARD
 # define RESULT_WARN_UNUSED [[gnu::warn_unused_result]]
+# define MAYBE_UNUSED_ENTITY
 #else
 # define RESULT_WARN_UNUSED
 # define RESULT_NODISCARD
+# define MAYBE_UNUSED_ENTITY
 #endif
 
 #if defined(RESULT_NAMESPACE)
@@ -4270,7 +4274,7 @@ template <typename String, typename E>
 inline RESULT_INLINE_VISIBILITY
 auto RESULT_NS_IMPL::detail::throw_bad_result_access_message(
   String&& message,
-  E&& error
+  MAYBE_UNUSED_ENTITY E&& error
 ) -> void
 {
 #if defined(RESULT_DISABLE_EXCEPTIONS)
