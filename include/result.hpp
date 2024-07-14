@@ -3987,6 +3987,9 @@ RESULT_NS_IMPL::detail::result_construct_base<T,E>::result_construct_base(
 // Construction / Assignment
 //-----------------------------------------------------------------------------
 
+#pragma push_macro("new")
+#undef new
+
 template <typename T, typename E>
 template <typename...Args>
 inline RESULT_INLINE_VISIBILITY
@@ -4149,6 +4152,7 @@ auto RESULT_NS_IMPL::detail::result_construct_base<T,E>::assign_value_from_resul
   storage.m_value = detail::forward<Result>(other).storage.m_value;
 }
 
+#pragma pop_macro("new")
 
 //=============================================================================
 // class : result_trivial_copy_ctor_base_impl
